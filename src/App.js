@@ -1,7 +1,11 @@
+import { Outlet } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
-    <h1>Photo App</h1>
+    <>
+      <h1>Photo App</h1>
+      <Outlet />
+    </>
   );
 }
 
