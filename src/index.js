@@ -5,12 +5,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import App from './App';
-import ErrorPage from './ErrorPage';
-import SinglePhoto from './SinglePhoto';
+import App from './components/App';
+import ErrorPage from './components/ErrorPage';
+import Photos from './components/Photos';
+import SinglePhoto from './components/SinglePhoto';
 
 import './index.css';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/",
+        element: <Photos />
+      },
       {
         path: "photo/:photoId",
         element: <SinglePhoto />,
