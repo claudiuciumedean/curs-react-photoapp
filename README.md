@@ -1,8 +1,10 @@
 # CURS REACT PHOTO APP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pentru a rula acest proiect introdu comanda respectiva in folder-ul unde ai clonat proiectul
+### `npm install`
 
-### `npm start`
+Porneste clientul folosind comanda
+### `npm run start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Porneste serverul folosind comanda
+### `npm run start-server`
