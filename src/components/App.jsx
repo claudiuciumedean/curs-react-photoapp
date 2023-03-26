@@ -12,7 +12,6 @@ const App = () => {
           </NavLink>
         </Nav>
       </Navbar>
-      <h1>Photo App</h1>
       <Outlet />
     </>
   );
