@@ -1,28 +1,68 @@
-import { Container, Col, Card, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import axios from 'axios';
 
 const Photos = () => {
+  const [photos, setPhotos] = useState([]);
+  const [hasError, setHasError] = useState(false);
 
-  return (
-    <Container>
-        <Col xs={6} md={4}>
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/photos");
+        setPhotos(response.data);
+      } catch (error) {
+        console.error(error);
+        setHasError(true);
+      }
+    };
+
+    window.setTimeout(() => fetchData(), 2000);
+  }, []);
+
+  const buildUI = () => {
+    if (hasError) {
+      return  <h2>Nu am putut incarca nicio imagine</h2>;
+    }
+
+    if (photos.length === 0) {
+      return <Spinner animation="grow" variant="primary" />
+    }
+    
+    return photos.map(({ id, srcThumbnail, title, shortDesc }) => (
+      <>
+        <Col xs={6} md={4} key={id}> 
           <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={`${process.env.PUBLIC_URL}/media/img.jpg`} />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up the
-                  bulk of the card's content.
-                </Card.Text>
-                <Button variant="primary">
-                  <NavLink to={`/photo/1`} className="nav-link">
-                    See more
-                  </NavLink>
-                </Button>
-              </Card.Body>
+            <Card.Img variant="top" src={`${process.env.PUBLIC_URL}/${srcThumbnail}`} />
+            <Card.Body>
+              <Card.Title>{title}</Card.Title>
+              <Card.Text>
+                {shortDesc}
+              </Card.Text>
+              <Button variant="primary">
+                <NavLink to={`/photo/${id}`} className="nav-link">
+                  See more
+                </NavLink>
+              </Button>
+            </Card.Body>
           </Card>
         </Col>
-    </Container>
+        <br/>
+      </>
+    ));
+  }
+
+  return (
+    <>
+      <h1>Fotografii</h1>
+      <br/>
+      <Container>
+        <Row>
+          {buildUI()}
+        </Row>
+      </Container>
+    </>
   );
 }
 
